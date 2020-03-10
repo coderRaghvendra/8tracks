@@ -3,8 +3,8 @@ package com.swiggy.tracks.resource;
 import com.swiggy.tracks.request.Request;
 import com.swiggy.tracks.response.Response;
 import com.swiggy.tracks.response.ResponseFactory;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Created by raghvendra.mishra on 31/10/18.

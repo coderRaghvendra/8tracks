@@ -7,7 +7,7 @@ sourceCompatibility = 1.8
 
 //Manifest Parameters
 def appName = '8tracks'
-def mainClassName = ''
+def mainClassName = 'com.swiggy.tracks.config.Launcher'
 def jerseyVersion = '2.25'
 def jettyVersion = '9.4.16.v20190411'
 
@@ -29,6 +29,18 @@ jar{
     }
 }
 
+task fatJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': appName,
+                'Implementation-Version': version,
+                'Main-Class': mainClassName
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+
 repositories {
     mavenCentral()
 }
@@ -46,5 +58,5 @@ dependencies {
     compile group: 'org.eclipse.jetty', name: 'jetty-server', version: jettyVersion
     compile group: 'org.eclipse.jetty', name: 'jetty-servlet', version: jettyVersion
 
-    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
 }

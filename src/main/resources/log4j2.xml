@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug">
+    <Properties>
+        <Property name="log-path">/log/tutorial/8tracks/</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="file-log" fileName="${log-path}/8tracks.log" filePattern="${log-path}/8tracks.%d{dd-MM-yyyy}.log">
+            <PatternLayout>
+                <pattern>%d{dd-MM-yyyy HH:mm:ss.SSS} [%t] [%-5level] %c{1} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+            </Policies>
+        </RollingFile>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{dd-MM-yyyy HH:mm:ss.SSS} [%t] [%-5level] %c{1} - %msg%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="debug" additivity="false">
+            <appender-ref ref="file-log" level="debug"/>
+            <appender-ref ref="error-log" level="error"/>
+        </Root>
+        <Logger name="com.zaxxer.hikari" additivity="false">
+            <appender-ref ref="error-log" level="error"/>
+        </Logger>
+        <Logger name="com.zaxxer.hikari.pool.PoolUtilities" additivity="false">
+            <appender-ref ref="error-log" level="error"/>
+        </Logger>
+        <Logger name="org.eclipse.jetty" additivity="false">
+            <appender-ref ref="file-log" level="error"/>
+        </Logger>
+        <Logger name="org.apache.tomcat" additivity="false">
+            <appender-ref ref="file-log" level="info"/>
+        </Logger>
+    </Loggers>
+</Configuration>
