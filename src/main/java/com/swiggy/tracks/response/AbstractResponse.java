@@ -3,16 +3,16 @@ package com.swiggy.tracks.response;
 /**
  * Created by raghvendra.mishra on 01/03/20.
  */
-public abstract class AbstractResponseDto implements ResponseDto {
+public abstract class AbstractResponse implements Response {
     protected boolean success;
 
-    protected AbstractResponseDto() {}
+    protected AbstractResponse() {}
 
-    protected AbstractResponseDto(AbstractResponseDto.Builder<?, ?> b) {
+    protected AbstractResponse(AbstractResponse.Builder<?, ?> b) {
         success = b.success;
     }
 
-    public abstract static class Builder<R extends AbstractResponseDto, B extends Builder<R, B>> {
+    public abstract static class Builder<R extends AbstractResponse, B extends Builder<R, B>> {
         private boolean success;
 
         public Builder() {}

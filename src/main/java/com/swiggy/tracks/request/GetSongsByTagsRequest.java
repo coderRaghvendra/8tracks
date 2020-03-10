@@ -1,7 +1,7 @@
 package com.swiggy.tracks.request;
 
-import com.swiggy.tracks.response.BasicResponseDto;
-import com.swiggy.tracks.response.ResponseDto;
+import com.swiggy.tracks.response.BasicResponse;
+import com.swiggy.tracks.response.Response;
 
 import java.util.List;
 
@@ -45,12 +45,12 @@ public class GetSongsByTagsRequest extends AbstractRequest {
     }
 
     @Override
-    public ResponseDto process() {
+    public Response process() {
         boolean success = false;
         try {
-            return new BasicResponseDto.Builder().success(success).build();
+            return new BasicResponse.Builder().success(success).build();
         } catch (Exception e) {
-            return new BasicResponseDto.Builder().success(false).build();
+            return new BasicResponse.Builder().success(false).build();
         }
     }
 }

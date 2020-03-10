@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by raghvendra.mishra on 03/03/20.
  */
-public class GetSongsByTagsResponse extends AbstractResponseDto {
+public class GetSongsByTagsResponse extends AbstractResponse {
     private List<Song> songs;
 
     protected GetSongsByTagsResponse(Builder b) {
@@ -15,7 +15,7 @@ public class GetSongsByTagsResponse extends AbstractResponseDto {
         this.songs = b.songs;
     }
 
-    public static class Builder extends AbstractResponseDto.Builder<GetSongsByTagsResponse, Builder> {
+    public static class Builder extends AbstractResponse.Builder<GetSongsByTagsResponse, Builder> {
         private List<Song> songs;
 
         public Builder() {}
