@@ -36,10 +36,4 @@ public abstract class UUIDUtility {
 		bb.putLong(uuid.getLeastSignificantBits());
 		return bb.array();
 	}
-
-	public static void main(String[] args) {
-		UUID uuid = UUID.randomUUID();
-		System.out.println("Original: " + uuid.toString());
-		System.out.println("Reconstructed: " + fromBytes(toBytes(uuid)));
-	}
 }

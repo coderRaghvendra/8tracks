@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.List;
+import java.sql.SQLException;
 import java.util.UUID;
 
 /**
@@ -27,9 +27,10 @@ public class SongTagDao {
             pst.setLong(3, songTag.getTagId());
             pst.setBoolean(4, songTag.isStatus());
             return pst.executeUpdate() == 1;
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while inserting data", e);
         } catch(Exception e) {
-            logger.info("exception occurred while inserting user {}");
-            e.printStackTrace();
+            logger.info("Exception occurred while inserting data", e);
         }
         return false;
     }
@@ -51,9 +52,10 @@ public class SongTagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("Exception occurred while fetching data", e);
         }
         return songTag;
     }
@@ -65,7 +67,7 @@ public class SongTagDao {
                     "where uid = ?");
             pst.setBytes(1, UUIDUtility.toBytes(uid));
             ResultSet rst = pst.executeQuery();
-            while(rst.next()){
+            while(rst.next()) {
                 songTag = new SongTag.Builder().id(rst.getLong("id"))
                         .uid(UUIDUtility.fromBytes(rst.getBytes("uid")))
                         .songId(rst.getLong("song_id"))
@@ -74,9 +76,10 @@ public class SongTagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("Exception occurred while fetching data", e);
         }
         return songTag;
     }

@@ -30,4 +30,11 @@ public abstract class AbstractResponse implements Response {
     public boolean isSuccess() {
         return this.success;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "success=" + success +
+                '}';
+    }
 }

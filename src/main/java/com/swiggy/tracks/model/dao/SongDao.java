@@ -2,13 +2,13 @@ package com.swiggy.tracks.model.dao;
 
 import com.swiggy.tracks.config.DBConfig;
 import com.swiggy.tracks.model.entity.Song;
-import com.swiggy.tracks.model.entity.SongTag;
 import com.swiggy.tracks.util.UUIDUtility;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,9 +31,10 @@ public class SongDao {
             pst.setBoolean(5, song.isStatus());
             int rowsAffected = pst.executeUpdate();
             return rowsAffected == 1;
-        }catch(Exception e){
-            logger.info("exception occurred while inserting user {}", song.getName());
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while inserting data", e);
+        } catch(Exception e) {
+            logger.info("Exception occurred while inserting data", e);
         }
         return false;
     }
@@ -55,9 +56,10 @@ public class SongDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return song;
     }
@@ -79,9 +81,10 @@ public class SongDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return song;
     }
@@ -90,20 +93,20 @@ public class SongDao {
         List<Song> songs = new ArrayList<>();
         try{
             StringBuilder sb = new StringBuilder();
-            sb.append("select a.id,a.uid,a.name,a.play_count, a.like_count, a.status, a.creation_time" +
+            sb.append("select distinct(a.id),a.uid,a.name,a.play_count, a.like_count, a.status, a.creation_time" +
                     " from song_ as a" +
                     " join song_tag as b" +
                     " on a.id = b.song_id" +
                     " where b.tag_id in (");
             int length = tagIds.size();
-            for(long tagId : tagIds) {
-                length--;
+            for (int i = 0; i < length; i++) {
                 sb.append("?");
-                if(length > 0) {
+                if(i < length-1) {
                     sb.append(",");
                 }
             }
-            sb.append(") and a.status = 1 and b.status = 1;");
+            sb.append(") and a.status = 1 and b.status = 1 order by play_count desc, like_count desc " +
+                    "limit 10");
             PreparedStatement pst = DBConfig.getConn().prepareStatement(sb.toString());
             int ind = 1;
             for(long tagId : tagIds) {
@@ -121,9 +124,10 @@ public class SongDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build());
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return songs;
     }

@@ -20,7 +20,6 @@ public class JerseyResourceConfig extends ResourceConfig {
 		packages(Resource.class.getPackage().getName());
 		register(JacksonFeature.class);
 		register(MultiPartFeature.class);
-//		register(AuthenticationFilter.class);
 		logger.info("Configured ResourceConfig");
 	}
 }

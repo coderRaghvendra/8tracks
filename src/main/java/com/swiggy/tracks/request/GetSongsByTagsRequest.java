@@ -8,6 +8,8 @@ import com.swiggy.tracks.model.entity.Tag;
 import com.swiggy.tracks.response.BasicResponse;
 import com.swiggy.tracks.response.GetSongsByTagsResponse;
 import com.swiggy.tracks.response.Response;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,6 +19,7 @@ import java.util.List;
  * Created by raghvendra.mishra on 01/03/20.
  */
 public class GetSongsByTagsRequest extends AbstractRequest {
+    private static final Logger logger = LogManager.getLogger(GetSongsByTagsRequest.class);
     private List<String> tags;
 
     GetSongsByTagsRequest(Builder b) {
@@ -64,12 +67,13 @@ public class GetSongsByTagsRequest extends AbstractRequest {
                 songs = SongTagManager.getSongsByTagIds(tagIds);
 
                 // sort songs on basis of play count and like count
-                Collections.sort(songs, new SongComparator());
-                songs = songs.subList(0, 10);
+//                Collections.sort(songs, new SongComparator());
+//                songs = songs.subList(0, 10);
                 success = true;
             }
             return new GetSongsByTagsResponse.Builder().songs(songs).success(success).build();
         } catch (Exception e) {
+            logger.error("Exception while processing GetSongsByTagsRequest", e);
             return new BasicResponse.Builder().success(false).build();
         }
     }

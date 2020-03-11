@@ -19,27 +19,25 @@ public class JettyServer implements Runnable {
     public void run() {
         try {
             Server server = new Server();
-            try {
-                ServletContainer container = new ServletContainer(new JerseyResourceConfig());
-                ServletHolder sh = new ServletHolder(container);
-                ServletContextHandler context = new ServletContextHandler(ServletContextHandler.NO_SESSIONS
-                        | ServletContextHandler.NO_SECURITY);
-                context.setContextPath("/");
-                context.addServlet(sh, "/*");
-                HandlerList handlers = new HandlerList();
-                handlers.setHandlers(new Handler[] { context });
-                ServerConnector httpConnector = new ServerConnector(server, new HttpConnectionFactory(new HttpConfiguration()));
-                httpConnector.setPort(8080);
-                httpConnector.setIdleTimeout(30000);
-                Connector[] connectors = new Connector[] { httpConnector };
-                server.setConnectors(connectors);
-                server.setHandler(handlers);
-                server.start();
-                logger.info("8tracks server started on 8080");
-                server.join();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ServletContainer container = new ServletContainer(new JerseyResourceConfig());
+            ServletHolder sh = new ServletHolder(container);
+            ServletContextHandler context = new ServletContextHandler(ServletContextHandler.NO_SESSIONS
+                    | ServletContextHandler.NO_SECURITY);
+            context.setContextPath("/");
+            context.addServlet(sh, "/*");
+            HandlerList handlers = new HandlerList();
+            handlers.setHandlers(new Handler[] { context });
+            ServerConnector httpConnector = new ServerConnector(server, new HttpConnectionFactory(new HttpConfiguration()));
+            httpConnector.setPort(8080);
+            httpConnector.setIdleTimeout(30000);
+            Connector[] connectors = new Connector[] { httpConnector };
+            server.setConnectors(connectors);
+            server.setHandler(handlers);
+            server.start();
+            logger.info("8tracks server started on 8080");
+            server.join();
+        } catch (InterruptedException e) {
+            logger.error("Interrupted exception while calling join", e);
         } catch (Exception e) {
             logger.error("Error occurred in server thread.", e);
         }

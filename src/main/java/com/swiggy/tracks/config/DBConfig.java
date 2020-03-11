@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by raghvendra.mishra on 11/03/20.
@@ -20,9 +21,10 @@ public class DBConfig {
                 Class.forName("com.mysql.jdbc.Driver");
                 conn = DriverManager.getConnection(
                         "jdbc:mysql://localhost:3306/tracks", "root", "root");
+            } catch(SQLException e) {
+                logger.info("SQLException while connecting to DB : ", e);
             } catch(Exception e) {
-                logger.info("Exception : " + e.getMessage());
-                e.printStackTrace();
+                logger.info("Exception while connecting to DB: ", e);
             }
         }
     }
@@ -31,7 +33,7 @@ public class DBConfig {
         try {
             conn.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info("Exception while closing connection to DB : ", e);
         }
     }
 

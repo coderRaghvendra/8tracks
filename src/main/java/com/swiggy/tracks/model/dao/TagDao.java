@@ -8,6 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,9 +29,10 @@ public class TagDao {
             pst.setLong(3, tag.getSongCount());
             pst.setBoolean(4, tag.isStatus());
             return pst.executeUpdate() == 1;
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while inserting data", e);
         } catch(Exception e) {
-            logger.info("exception occurred while inserting user {}");
-            e.printStackTrace();
+            logger.info("exception occurred while inserting data", e);
         }
         return false;
     }
@@ -51,9 +53,10 @@ public class TagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return tag;
     }
@@ -74,9 +77,10 @@ public class TagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return tag;
     }
@@ -97,9 +101,10 @@ public class TagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build();
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return tag;
     }
@@ -133,9 +138,10 @@ public class TagDao {
                         .creationTime(rst.getTimestamp("creation_time").toLocalDateTime())
                         .build());
             }
-        }catch(Exception e){
-            logger.info("exception occurred while fetching user {}");
-            e.printStackTrace();
+        } catch(SQLException e) {
+            logger.info("SqlException occurred while fetching data", e);
+        } catch(Exception e) {
+            logger.info("exception occurred while fetching data", e);
         }
         return tags;
     }

@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * Created by raghvendra.mishra on 28/08/19.
  */
-//@ValidateRequest(ValidateRequest.ValidationType.ALL)
 @Path("/explore")
 @Produces(MediaType.APPLICATION_JSON)
 public class SongTagResource extends AbstractResource {
