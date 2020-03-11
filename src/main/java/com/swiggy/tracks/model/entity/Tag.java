@@ -67,4 +67,28 @@ public class Tag {
             return new Tag(this);
         }
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getSongCount() {
+        return songCount;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
 }

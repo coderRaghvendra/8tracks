@@ -75,4 +75,45 @@ public class Song {
             return new Song(this);
         }
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public long getPlayCount() {
+        return playCount;
+    }
+
+    public long getLikeCount() {
+        return likeCount;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", uid=" + uid +
+                ", name='" + name + '\'' +
+                ", playCount=" + playCount +
+                ", likeCount=" + likeCount +
+                ", status=" + status +
+                ", creationTime=" + creationTime +
+                '}';
+    }
 }

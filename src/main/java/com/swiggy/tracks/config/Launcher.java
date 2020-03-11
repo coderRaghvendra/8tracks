@@ -11,6 +11,7 @@ public class Launcher {
 
     public static void main(String[] args) {
         try {
+            DBConfig.initialize();
             JettyServer server = new JettyServer();
             Thread thread = new Thread(server);
             thread.start();

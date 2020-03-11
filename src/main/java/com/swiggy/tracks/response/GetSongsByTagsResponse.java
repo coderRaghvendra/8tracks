@@ -39,4 +39,11 @@ public class GetSongsByTagsResponse extends AbstractResponse {
     public List<Song> getSongs() {
         return songs;
     }
+
+    @Override
+    public String toString() {
+        return "GetSongsByTagsResponse{" +
+                "songs=" + songs +
+                '}';
+    }
 }

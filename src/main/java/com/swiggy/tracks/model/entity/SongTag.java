@@ -67,4 +67,28 @@ public class SongTag {
             return new SongTag(this);
         }
     }
+
+    public long getId() {
+        return id;
+    }
+
+    public UUID getUid() {
+        return uid;
+    }
+
+    public long getSongId() {
+        return songId;
+    }
+
+    public long getTagId() {
+        return tagId;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public LocalDateTime getCreationTime() {
+        return creationTime;
+    }
 }
